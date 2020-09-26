@@ -13,33 +13,31 @@ import static org.junit.Assert.assertEquals;
 public class StepsDefinition {
     Map<String, Integer> prices = new HashMap<>();
 
-//    int bananaPrice = 0;
-//    int applePrice = 0;
+    int bananaPrice = 0;
+    int applePrice = 0;
     Checkout checkout = new Checkout();
     //map djfwkjkbksdbv
 
     @Given("^the price of a \"([^\"]*)\" is (\\d+)c$")
     public void thePriceOfAIsC(String name, int price) throws Throwable {
-        prices.put(name, price);
-//        if (name.equals("banana")) {
-//            this.bananaPrice = price;
-//        } else if (name.equals("apple")) {
-//            this.applePrice = price;
-//        } else {
-//            throw new PendingException("Alex, Unknown product: " + name);
-//        }
+        if (name.equals("banana")) {
+            this.bananaPrice = price;
+        } else if (name.equals("apple")) {
+            this.applePrice = price;
+        } else {
+            throw new PendingException("Alex, Unknown product: " + name);
+        }
     }
 
     @When("^I checkout (\\d+) \"([^\"]*)\"$")
     public void iCheckout(int itemCount, String itemName) throws Throwable {
-        checkout.add(itemCount, prices.get(itemName));
-//        if (itemName.equals("banana")) {
-//            checkout.add(itemCount, bananaPrice);
-//        } else if (itemName.equals("apple")) {
-//            checkout.add(itemCount, applePrice);
-//        } else {
-//            throw new PendingException("Unknown product: " + itemName);
-//        }
+        if (itemName.equals("banana")) {
+            checkout.add(itemCount, bananaPrice);
+        } else if (itemName.equals("apple")) {
+            checkout.add(itemCount, applePrice);
+        } else {
+            throw new PendingException("Unknown product: " + itemName);
+        }
     }
 
     @Then("^the total price should be (\\d+)c$")
