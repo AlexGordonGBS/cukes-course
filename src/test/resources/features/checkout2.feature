@@ -1,4 +1,4 @@
-#@focus
+@focus
 Feature: Checkout2
 
   Background: Load prices from table

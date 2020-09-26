@@ -9,9 +9,6 @@ import org.junit.runner.RunWith;
 @CucumberOptions(features = "classpath:features"
         , snippets = SnippetType.CAMELCASE
         , dryRun = false
-//        // logical OR on tags - comma separated in the same quotes:
-//        , tags = {"@focus, @wip"}
-        // logical AND on tags - comma separated in the separate quotes:
         , tags = {"@focus"}
 )
 public class CucumberTest {
