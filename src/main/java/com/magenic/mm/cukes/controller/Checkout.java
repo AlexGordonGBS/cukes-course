@@ -1,4 +1,4 @@
-package com.magenic.mm.cukes;
+package com.magenic.mm.cukes.controller;
 
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -9,6 +9,10 @@ public class Checkout {
 
     public void add(int count, int price){
         runningTotal += count * price;
+    }
+
+    public void reset() {
+        runningTotal =0;
     }
 
     public int total() {

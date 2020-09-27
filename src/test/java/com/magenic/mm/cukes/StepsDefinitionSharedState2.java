@@ -1,52 +1,34 @@
 package com.magenic.mm.cukes;
 
-import cucumber.api.DataTable;
-import cucumber.api.java.en.Given;
+import com.magenic.mm.cukes.controller.Checkout;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-
-import java.util.HashMap;
-import java.util.Map;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ContextConfiguration;
 
 import static org.junit.Assert.assertEquals;
 
+@SpringBootTest
+@ContextConfiguration(classes = CukesCourseApplication.class)
 public class StepsDefinitionSharedState2 {
 
-    Checkout checkout = new Checkout();
-    Map<String, String> prices;
+    @Autowired
+    private Checkout checkout;
 
-//    @Given("^SharedState: the prices as follows$")
-//    public void thePricesAsFollows(DataTable table) throws Throwable {
-//        // Write code here that turns the phrase above into concrete actions
-//        // For automatic transformation, change DataTable to one of
-//        // List<YourType>, List<List<E>>, List<Map<K,V>> or Map<K,V>.
-//        // E,K,V must be a scalar (String, Integer, Date, enum etc)
-//        prices = new HashMap<>();
-//        prices = table.asMap(String.class, String.class);
-////        System.out.println(prices);
-//    }
+    @Autowired
+    private PricesDatabase pricesDatabase;
 
-    @When("^SharedState: I checkoutNEW (\\d+) \"([^\"]*)\"$")
-    public void iCheckoutNEW(int itemCount, String itemName) throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        checkout.add(itemCount, Integer.valueOf(prices.get(itemName)));
-    }
-
-    @Then("^SharedState: the NEW total price should be (\\d+)c$")
-    public void theNEWTotalPriceShouldBeC(int total) throws Throwable {
-        assertEquals(total, checkout.total());
-    }
-
-    @When("^SharedState: I checkout a cart of (\\d+), (\\d+),(\\d+),(\\d+)$")
+    @When("^I checkout a cart of (\\d+), (\\d+),(\\d+),(\\d+)$")
     public void iCheckoutACartOf(int bananaN, int appleN, int potatoN, int unknownN) throws Throwable {
-        checkout.add(bananaN, Integer.valueOf(prices.get("banana")));
-        checkout.add(appleN, Integer.valueOf(prices.get("apple")));
-        checkout.add(potatoN, Integer.valueOf(prices.get("potato")));
-        checkout.add(unknownN, Integer.valueOf(prices.get("unknown")));
+        checkout.add(bananaN, Integer.valueOf(pricesDatabase.getPrices().get("banana")));
+        checkout.add(appleN, Integer.valueOf(pricesDatabase.getPrices().get("apple")));
+        checkout.add(potatoN, Integer.valueOf(pricesDatabase.getPrices().get("potato")));
+        checkout.add(unknownN, Integer.valueOf(pricesDatabase.getPrices().get("unknown")));
     }
 
-    @Then("^SharedState: the NEW total price should be (\\d+)$")
-    public void theNEWTotalPriceShouldBe(int total) throws Throwable {
+    @Then("^The total price should be (\\d+)c$")
+    public void theTotalPriceShouldBeC(int total) throws Throwable {
         assertEquals(total, checkout.total());
     }
 

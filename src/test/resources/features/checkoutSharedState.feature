@@ -2,14 +2,14 @@
 Feature: CheckoutSharedState
 
   Scenario Outline:
-    Given SharedState: the prices as follows
+    Given The prices are as follows
       | name    | price |
       | apple   | 25    |
       | unknown | 100   |
       | potato  | 1     |
       | banana  | 40    |
-    When SharedState: I checkout a cart of <Banana#>, <Apple#>,<Potato#>,<Unknown#>
-    Then SharedState: the NEW total price should be <total>
+    When I checkout a cart of <Banana#>, <Apple#>,<Potato#>,<Unknown#>
+    Then The total price should be <total>c
 
     Examples:
       | Banana# | Apple# | Potato# | Unknown# | total |
